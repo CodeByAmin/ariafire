@@ -33,10 +33,15 @@ export default async function MonitoringPage() {
     stage3Temp = '۱۲۰°C', stage3Title = 'هشدار بحرانی', stage3Desc = 'فعال‌سازی خودکار اطفای حریق',
     galleryImages = [],
   } = data
-
+  let siteSettings = {}
+  try {
+    siteSettings = await payload.findGlobal({ slug: 'site-settings' })
+  } catch (error) {
+    console.error('Error loading site settings:', error)
+  }
   return (
     <>
-      <Header currentPage="monitoring" />
+      <Header currentPage="monitoring" siteData={siteSettings}/>
       <main className="pt-24 min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
         <section className="py-20 px-4 text-center">
           <div className="max-w-6xl mx-auto">
@@ -85,7 +90,7 @@ export default async function MonitoringPage() {
           </section>
         )}
       </main>
-      <Footer />
+      <Footer siteData={siteSettings}/>
     </>
   )
 }

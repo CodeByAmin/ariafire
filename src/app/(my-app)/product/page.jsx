@@ -47,10 +47,16 @@ export default async function ProductPage() {
     ctaTitle = 'بیش از ۵۰۰۰ کامیون در ایران مجهز به آریافایر هستند',
     ctaButtonText = 'درخواست مشاوره رایگان',
   } = data
+  let siteSettings = {}
+  try {
+    siteSettings = await payload.findGlobal({ slug: 'site-settings' })
+  } catch (error) {
+    console.error('Error loading site settings:', error)
+  }
 
   return (
     <>
-      <Header currentPage="product" />
+      <Header currentPage="product"  siteData={siteSettings}/>
 
       <main className="pt-24 min-h-screen bg-gradient-to-br from-gray-50 to-white">
         {/* Hero */}
@@ -135,7 +141,7 @@ export default async function ProductPage() {
         </section>
       </main>
 
-      <Footer />
+      <Footer siteData={siteSettings}/>
     </>
   )
 }

@@ -55,10 +55,15 @@ export default async function ContactPage() {
 
   // استخراج شماره تلفن بدون فاصله و صفر اول برای لینک واتساپ
   const cleanPhone = phone.replace(/[^0-9]/g, '').replace(/^0/, '98')
-
+  let siteSettings = {}
+  try {
+    siteSettings = await payload.findGlobal({ slug: 'site-settings' })
+  } catch (error) {
+    console.error('Error loading site settings:', error)
+  }
   return (
     <>
-      <Header currentPage="contact" />
+      <Header currentPage="contact" siteData={siteSettings}/>
 
       <main className="pt-24 min-h-screen bg-gradient-to-br from-gray-50 to-white">
         {/* Hero Section */}
@@ -241,7 +246,7 @@ export default async function ContactPage() {
         </section>
       </main>
 
-      <Footer />
+      <Footer siteData={siteSettings}/>
     </>
   )
 }

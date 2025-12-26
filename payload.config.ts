@@ -11,6 +11,7 @@ import { MonitoringPage } from './src/globals/MonitoringPage'
 import { ProductPage } from './src/globals/ProductPage'
 
 import { Media } from './src/collections/Media' // Collection هست، نه Global
+import { SiteSettings } from '@/globals/SiteSettings'
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -22,6 +23,7 @@ export default buildConfig({
     FireSuppressionPage,
     MonitoringPage,
     ProductPage,
+    SiteSettings
   ],
 
   // Collectionها اینجا میان

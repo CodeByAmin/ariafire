@@ -1,28 +1,32 @@
-// src/components/Header.js (یا components/Header.js)
-
+// components/Header.tsx (یا .js — اما اگر از any استفاده کردی .tsx بهتره)
 'use client'
 
 import Link from 'next/link'
-import { Menu, X, Phone, Shield } from 'lucide-react'
+import { Menu, X, Phone, Shield, MessageCircle, Instagram, Linkedin } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
-export default function Header({ currentPage = 'home' }) {
+const socialIconMap = {
+  whatsapp: <MessageCircle className="w-5 h-5" />,
+  instagram: <Instagram className="w-5 h-5" />,
+  linkedin: <Linkedin className="w-5 h-5" />,
+}
+
+export default function Header({ currentPage = 'home', siteData = {} }) {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+
+  const {
+    brandName = 'آریافایر',
+    brandTagline = 'سیستم ایمنی چرخ',
+    mainMenu = [],
+    phone = '0902-709-7989',
+  } = siteData
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const menuItems = [
-    { href: '/', text: 'خانه', id: 'home' },
-    { href: '/product', text: 'محصول', id: 'product' },
-    { href: '/monitoring', text: 'مانیتورینگ بوق', id: 'monitoring' },
-    { href: '/fire-suppression', text: 'اطفای حریق', id: 'fire-suppression' },
-    { href: '/contact', text: 'تماس با ما', id: 'contact' },  // تغییر به /contact برای صفحه جدید
-  ]
 
   return (
     <header
@@ -36,40 +40,40 @@ export default function Header({ currentPage = 'home' }) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* لوگو */}
+          {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 space-x-reverse">
             <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl flex items-center justify-center shadow-lg">
               <Shield className="w-7 h-7 text-white" />
             </div>
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                آریافایر
+                {brandName}
               </h1>
-              <p className="text-xs text-gray-500 -mt-1">سیستم ایمنی چرخ</p>
+              <p className="text-xs text-gray-500 -mt-1">{brandTagline}</p>
             </div>
           </Link>
 
-          {/* منوی دسکتاپ */}
+          {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center space-x-8 space-x-reverse">
-            {menuItems.map((item) => (
+            {mainMenu.map((item) => (
               <Link
-                key={item.id}
+                key={item.pageId}
                 href={item.href}
                 className={`relative font-medium transition-colors duration-300 ${
-                  currentPage === item.id 
+                  currentPage === item.pageId 
                     ? 'text-orange-600' 
                     : 'text-gray-700 hover:text-orange-600'
                 }`}
               >
                 {item.text}
-                {currentPage === item.id && (
+                {currentPage === item.pageId && (
                   <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full" />
                 )}
               </Link>
             ))}
           </nav>
 
-          {/* دکمه تماس دسکتاپ */}
+          {/* Desktop CTA */}
           <Link
             href="/contact"
             className="hidden lg:flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
@@ -78,27 +82,26 @@ export default function Header({ currentPage = 'home' }) {
             <Phone className="w-5 h-5" />
           </Link>
 
-          {/* همبرگر منو موبایل */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden p-3 rounded-xl bg-white/50 border border-gray-200"
-            aria-label="باز کردن منو"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* منوی موبایل */}
+        {/* Mobile Menu */}
         {isOpen && (
           <nav className="lg:hidden pb-6 border-t border-gray-100 mt-4 pt-4">
             <div className="flex flex-col space-y-2">
-              {menuItems.map((item) => (
+              {mainMenu.map((item) => (
                 <Link
-                  key={item.id}
+                  key={item.pageId}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
                   className={`py-3 px-5 rounded-xl text-right font-medium transition-colors ${
-                    currentPage === item.id
+                    currentPage === item.pageId
                       ? 'bg-orange-50 text-orange-600'
                       : 'text-gray-700 hover:bg-gray-50'
                   }`}

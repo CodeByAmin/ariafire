@@ -39,10 +39,15 @@ export default async function FireSuppressionPage() {
     ctaTitle = 'ایمنی ناوگان خود را همین امروز تضمین کنید',
     ctaDescription = 'بیش از ۵۰۰۰ کامیون در ایران با آریافایر در برابر آتش‌سوزی محافظت می‌شوند',
   } = pageData
-
+  let siteSettings = {}
+  try {
+    siteSettings = await payload.findGlobal({ slug: 'site-settings' })
+  } catch (error) {
+    console.error('Error loading site settings:', error)
+  }
   return (
     <>
-      <Header currentPage="fire-suppression" />
+      <Header currentPage="fire-suppression" siteData={siteSettings}/>
 
       <main className="pt-24 min-h-screen bg-gradient-to-br from-gray-50 via-white to-red-50">
         {/* Hero Section */}
@@ -151,7 +156,7 @@ export default async function FireSuppressionPage() {
         </section>
       </main>
 
-      <Footer />
+      <Footer siteData={siteSettings}/>
     </>
   )
 }
