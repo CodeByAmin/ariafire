@@ -1,8 +1,9 @@
+// app/components/WhatsAppForm.jsx
 'use client'
 import { useState } from 'react'
-import { Send, Phone, Mail, User, MessageSquare, MapPin, Truck, Shield, Zap, Clock, CheckCircle, Play } from 'lucide-react'
+import { Send, Phone, Mail, User, MessageSquare, MapPin, Truck, Shield, Zap, Clock, CheckCircle } from 'lucide-react'
 
-const WHATSAPP_NUMBER = '989210827367'
+const WHATSAPP_NUMBER = '989027097989'
 
 export default function WhatsAppForm() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,37 @@ export default function WhatsAppForm() {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [isSent, setIsSent] = useState(false)
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  // دریافت داده از API Payload
+  useState(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/payload/globals/home-page')
+        const result = await response.json()
+        setData(result)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  const {
+    contactBadge = 'ارسال فوری به واتساپ',
+    contactTitle = 'در کمتر از ۳۰ ثانیه سیستم ایمنی سفارش دهید',
+    contactDescription = 'اطلاعات شما مستقیماً به واتساپ تیم فروش ارسال شده و در ۵ دقیقه پاسخ می‌گیرید',
+    whatsappBenefits = [
+      { title: 'پاسخ در ۵ دقیقه', desc: 'تیم فروش فوری پاسخ می‌دهد' },
+      { title: 'مشاوره رایگان', desc: 'کارشناسان متخصص' },
+      { title: 'نصب سریع', desc: 'در محل ناوگان شما' },
+      { title: 'گارانتی مادام العمر', desc: 'پشتیبانی ۲۴/۷' },
+    ],
+  } = data || {}
 
   const handleChange = (e) => {
     setFormData({
@@ -68,16 +100,26 @@ _ارسال شده از وبسایت آریافایر_`
     }
   }
 
-  const benefits = [
-    { icon: <Zap className="w-6 h-6" />, title: 'پاسخ در ۵ دقیقه', desc: 'تیم فروش فوری پاسخ می‌دهد' },
-    { icon: <Shield className="w-6 h-6" />, title: 'مشاوره رایگان', desc: 'کارشناسان متخصص' },
-    { icon: <Clock className="w-6 h-6" />, title: 'نصب سریع', desc: 'در محل ناوگان شما' },
-    { icon: <CheckCircle className="w-6 h-6" />, title: 'گارانتی مادام العمر', desc: 'پشتیبانی ۲۴/۷' }
-  ]
+  const benefits = whatsappBenefits.map((benefit, index) => ({
+    icon: index === 0 ? <Zap className="w-6 h-6" /> :
+           index === 1 ? <Shield className="w-6 h-6" /> :
+           index === 2 ? <Clock className="w-6 h-6" /> :
+           <CheckCircle className="w-6 h-6" />,
+    title: benefit.title,
+    desc: benefit.desc
+  }))
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-black">
+        <div className="text-center text-white">در حال بارگذاری...</div>
+      </section>
+    )
+  }
 
   return (
-    <section id="contact" className="relative py-20 bg-black  overflow-hidden">
-      {/* Video Background - هماهنگ با هیرو */}
+    <section id="contact" className="relative py-20 bg-black overflow-hidden">
+      {/* Video Background */}
       <div className="absolute inset-0">
         <video 
           autoPlay 
@@ -92,24 +134,21 @@ _ارسال شده از وبسایت آریافایر_`
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header - هماهنگ با هیرو */}
+        {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-5 py-2 bg-white/20 border border-white/30 backdrop-blur-sm rounded-full text-sm mb-6">
             <MessageSquare className="w-4 h-4 ml-2 text-orange-300" />
-            ارسال فوری به واتساپ
+            {contactBadge}
           </div>
           
           <h2 className="text-4xl lg:text-6xl font-extrabold text-white mb-6">
             <span className="bg-gradient-to-r from-orange-400 via-red-500 to-orange-500 bg-clip-text text-transparent">
-              در کمتر از ۳۰ ثانیه
+              {contactTitle}
             </span>
-            <br />
-            <span className="text-white">سیستم ایمنی سفارش دهید</span>
           </h2>
           
           <p className="text-xl text-orange-200 font-semibold max-w-3xl mx-auto leading-relaxed">
-            اطلاعات شما <strong className="text-orange-300">مستقیماً به واتساپ تیم فروش</strong> ارسال شده و 
-            <strong className="text-green-300"> در ۵ دقیقه پاسخ می‌گیرید</strong>
+            {contactDescription}
           </p>
         </div>
 
@@ -121,7 +160,7 @@ _ارسال شده از وبسایت آریافایر_`
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* نام */}
                 <div className="sm:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-300 mb-3 flex items-center">
+                  <label className=" text-sm font-semibold text-gray-300 mb-3 flex items-center">
                     <User className="w-4 h-4 ml-2 text-orange-400" />
                     نام و نام خانوادگی
                   </label>
@@ -138,7 +177,7 @@ _ارسال شده از وبسایت آریافایر_`
 
                 {/* تلفن */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-3 flex items-center">
+                  <label className=" text-sm font-semibold text-gray-300 mb-3 flex items-center">
                     <Phone className="w-4 h-4 ml-2 text-green-400" />
                     شماره تماس
                   </label>
@@ -155,7 +194,7 @@ _ارسال شده از وبسایت آریافایر_`
 
                 {/* ایمیل */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-3 flex items-center">
+                  <label className=" text-sm font-semibold text-gray-300 mb-3 flex items-center">
                     <Mail className="w-4 h-4 ml-2 text-blue-400" />
                     ایمیل (اختیاری)
                   </label>
@@ -171,7 +210,7 @@ _ارسال شده از وبسایت آریافایر_`
 
                 {/* تعداد کامیون‌ها */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-3 flex items-center">
+                  <label className=" text-sm font-semibold text-gray-300 mb-3 flex items-center">
                     <Truck className="w-4 h-4 ml-2 text-orange-400" />
                     تعداد کامیون‌ها
                   </label>
@@ -191,7 +230,7 @@ _ارسال شده از وبسایت آریافایر_`
 
                 {/* شرکت */}
                 <div className="sm:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-300 mb-3 flex items-center">
+                  <label className=" text-sm font-semibold text-gray-300 mb-3 flex items-center">
                     <MapPin className="w-4 h-4 ml-2 text-purple-400" />
                     شرکت / ناوگان حمل و نقل
                   </label>
@@ -207,7 +246,7 @@ _ارسال شده از وبسایت آریافایر_`
 
                 {/* پیام */}
                 <div className="sm:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-300 mb-3 flex items-center">
+                  <label className=" text-sm font-semibold text-gray-300 mb-3 flex items-center">
                     <MessageSquare className="w-4 h-4 ml-2 text-indigo-400" />
                     پیام (اختیاری)
                   </label>
@@ -222,7 +261,7 @@ _ارسال شده از وبسایت آریافایر_`
                 </div>
               </div>
 
-              {/* دکمه ارسال - هماهنگ با هیرو */}
+              {/* دکمه ارسال */}
               <button
                 type="submit"
                 disabled={isLoading}
@@ -320,12 +359,12 @@ _ارسال شده از وبسایت آریافایر_`
               </div>
             </div>
 
-            {/* دکمه جایگزین - هماهنگ با هیرو */}
+            {/* دکمه جایگزین */}
             <a 
               href="#features"
-              className="block w-full py-4 px-6 rounded-2xl border border-white/40 backdrop-blur-sm text-white text-center hover:bg-white/10 transition-all duration-300"
+              className=" w-full py-4 px-6 rounded-2xl border border-white/40 backdrop-blur-sm text-white text-center hover:bg-white/10 transition-all duration-300"
             >
-              <Shield className="w-5 h-5 ml-2 inline-block" />
+              <Shield className="w-5 h-5 ml-2 inline-" />
               ابتدا ویژگی‌ها را مشاهده کنید
             </a>
           </div>

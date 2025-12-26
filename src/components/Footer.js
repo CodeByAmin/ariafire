@@ -14,7 +14,7 @@ export default function Footer() {
   const socialLinks = [
     { 
       name: 'واتساپ', 
-      href: 'https://wa.me/989210827367', 
+      href: 'https://wa.me/989027097989', 
       icon: <MessageCircle className="w-5 h-5" />,
       color: 'hover:bg-green-500'
     },
@@ -33,7 +33,7 @@ export default function Footer() {
   ]
 
   const contactInfo = [
-    { icon: <Phone className="w-4 h-4" />, text: '۰۹۲۱-۰۸۲-۷۳۶۷' },
+    { icon: <Phone className="w-4 h-4" />, text: '0902-709-7989' },
     { icon: <Mail className="w-4 h-4" />, text: 'info@ariafire.ir' },
     { icon: <MapPin className="w-4 h-4" />, text: 'تهران، خیابان انقلاب، پلاک ۱۲۳' },
   ]
@@ -146,10 +146,10 @@ export default function Footer() {
                 <span className="text-sm font-bold text-orange-300">پشتیبانی 24/7</span>
               </div>
               <a 
-                href="tel:+989210827367" 
+                href="tel:+989027097989" 
                 className="text-white font-bold text-base mt-1 block hover:text-orange-300 transition-colors duration-300"
               >
-                ۰۹۲۱-۰۸۲-۷۳۶۷
+               09027097989
               </a>
             </div>
           </div>
@@ -170,8 +170,8 @@ export default function Footer() {
                 شرایط استفاده
               </button>
               <span className="flex items-center space-x-2 space-x-reverse">
-                <span>طراحی شده توسط</span>
-                <span className="text-orange-400 font-bold">aminbit</span>
+                <span>طراحی شده توسط تیم</span>
+                <span className="text-orange-400 font-bold">نرم افزار بیتکو</span>
               </span>
             </div>
           </div>

@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Phone, MessageCircle, Headphones, Clock, Zap, X, Mail, Shield, Truck } from 'lucide-react'
 
-const WHATSAPP_NUMBER = '989210827367'
+const WHATSAPP_NUMBER = '989027097989'
 
 export default function SupportPanel() {
   const [isOpen, setIsOpen] = useState(false)
@@ -33,8 +33,8 @@ export default function SupportPanel() {
     {
       icon: <Phone className="w-5 h-5" />,
       title: 'تماس مستقیم',
-      description: '0921-082-7367',
-      action: () => window.open('tel:+989210827367', '_blank'),
+      description: '0902-709-7989',
+      action: () => window.open('tel:+989027097989', '_blank'),
       bg: 'from-green-500/10 to-green-600/10',
       border: 'border-green-200',
       iconColor: 'text-green-600',
@@ -163,7 +163,7 @@ export default function SupportPanel() {
               </h4>
               
               <a
-                href={`tel:+989210827367`}
+                href={`tel:+989027097989`}
                 className="group flex items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200 hover:border-green-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
               >
                 <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md">
@@ -171,7 +171,7 @@ export default function SupportPanel() {
                 </div>
                 <div className="mr-3 flex-1">
                   <p className="font-bold text-gray-900">تماس فوری</p>
-                  <p className="text-sm text-gray-600 mt-1">0921-082-7367</p>
+                  <p className="text-sm text-gray-600 mt-1">0902-709-7989</p>
                 </div>
                 <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 transition-colors duration-300">
                   <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
