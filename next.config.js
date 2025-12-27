@@ -10,7 +10,7 @@ const nextConfig = {
   },
   reactStrictMode: true,
   experimental: {
-    reactCompiler: false,  // اگر ارور compiler داری
+  // اگر ارور compiler داری
   },
   webpack: (config) => {
     config.resolve.alias = {
