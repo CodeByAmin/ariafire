@@ -1,11 +1,10 @@
-// app/components/WhatsAppForm.jsx
 'use client'
 import { useState } from 'react'
 import { Send, Phone, Mail, User, MessageSquare, MapPin, Truck, Shield, Zap, Clock, CheckCircle } from 'lucide-react'
 
 const WHATSAPP_NUMBER = '989027097989'
 
-export default function WhatsAppForm() {
+export default function WhatsAppForm({ data = {} }) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -16,25 +15,6 @@ export default function WhatsAppForm() {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [isSent, setIsSent] = useState(false)
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  // دریافت داده از API Payload
-  useState(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/payload/globals/home-page')
-        const result = await response.json()
-        setData(result)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
 
   const {
     contactBadge = 'ارسال فوری به واتساپ',
@@ -46,13 +26,17 @@ export default function WhatsAppForm() {
       { title: 'نصب سریع', desc: 'در محل ناوگان شما' },
       { title: 'گارانتی مادام العمر', desc: 'پشتیبانی ۲۴/۷' },
     ],
-  } = data || {}
+    // فیلدهای جدید برای بخش‌های قابل تغییر
+    emergencyContactTitle = 'تماس اضطراری',
+    emergencyContactSubtitle = 'پشتیبانی ۲۴ ساعته',
+    emergencyPhone = '۰۹۰۲-۷۰۹-۷۹۸۹',
+    alternativeButtonText = 'ابتدا ویژگی‌ها را مشاهده کنید',
+  } = data
+
+  
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   const createWhatsAppMessage = () => {
@@ -76,18 +60,14 @@ _ارسال شده از وبسایت آریافایر_`
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
-    
+
     try {
       const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(createWhatsAppMessage())}`
       window.open(whatsappUrl, '_blank')
-      
+
       setTimeout(() => {
         setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          company: '',
-          trucks: '',
+          name: '', phone: '', email: '', company: '', trucks: '',
           message: 'سلام، علاقه‌مند به سیستم ایمنی چرخ کامیون هستم'
         })
         setIsSent(true)
@@ -108,14 +88,6 @@ _ارسال شده از وبسایت آریافایر_`
     title: benefit.title,
     desc: benefit.desc
   }))
-
-  if (loading) {
-    return (
-      <section className="py-20 bg-black">
-        <div className="text-center text-white">در حال بارگذاری...</div>
-      </section>
-    )
-  }
 
   return (
     <section id="contact" className="relative py-20 bg-black overflow-hidden">
@@ -341,20 +313,20 @@ _ارسال شده از وبسایت آریافایر_`
             </div>
 
             {/* اطلاعات تماس اضطراری */}
-            <div className="bg-gradient-to-r from-green-500/20 to-emerald-600/20 backdrop-blur-sm rounded-2xl border border-green-500/30 p-6">
+                <div className="bg-gradient-to-r from-green-500/20 to-emerald-600/20 backdrop-blur-sm rounded-2xl border border-green-500/30 p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-white flex items-center">
                     <Phone className="w-4 h-4 ml-2 text-green-400" />
-                    تماس اضطراری
+                    {emergencyContactTitle}
                   </h4>
-                  <p className="text-green-200 text-sm mt-1">پشتیبانی ۲۴ ساعته</p>
+                  <p className="text-green-200 text-sm mt-1">{emergencyContactSubtitle}</p>
                 </div>
                 <a 
                   href={`tel:+98${WHATSAPP_NUMBER}`}
                   className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-xl font-bold hover:shadow-lg transition-all duration-300"
                 >
-                  ۰۹۲۱-۰۸۲-۷۳۶۷
+                  {emergencyPhone}
                 </a>
               </div>
             </div>
@@ -362,10 +334,10 @@ _ارسال شده از وبسایت آریافایر_`
             {/* دکمه جایگزین */}
             <a 
               href="#features"
-              className=" w-full py-4 px-6 rounded-2xl border border-white/40 backdrop-blur-sm text-white text-center hover:bg-white/10 transition-all duration-300"
+              className="w-full py-4 px-6 rounded-2xl border border-white/40 backdrop-blur-sm text-white text-center hover:bg-white/10 transition-all duration-300 flex items-center justify-center"
             >
-              <Shield className="w-5 h-5 ml-2 inline-" />
-              ابتدا ویژگی‌ها را مشاهده کنید
+              <Shield className="w-5 h-5 ml-2" />
+              {alternativeButtonText}
             </a>
           </div>
         </div>

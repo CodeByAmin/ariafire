@@ -1,15 +1,10 @@
 'use client'
+import React from 'react' // این خط را اضافه کنید
 import { Shield, Zap, AlertTriangle, Activity, Truck, Flame, Clock, CheckCircle } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
-// آیکون‌های ثابت برای ۶ ویژگی — دقیقاً مثل قبل، تغییر نمی‌کنیم
 const defaultIcons = [
-  <Shield key="shield" className="w-12 h-12" />,
-  <Zap key="zap" className="w-12 h-12" />,
-  <AlertTriangle key="alert" className="w-12 h-12" />,
-  <Activity key="activity" className="w-12 h-12" />,
-  <Truck key="truck" className="w-12 h-12" />,
-  <Flame key="flame" className="w-12 h-12" />,
+  Shield, Zap, AlertTriangle, Activity, Truck, Flame
 ]
 export default function Features({ data = {} }) {
   const [isVisible, setIsVisible] = useState(false)
@@ -97,9 +92,9 @@ export default function Features({ data = {} }) {
                 {/* Icon + Stats */}
                 <div className="flex items-center justify-between mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                    <div className="text-white">
-                      {defaultIcons[index] || <Shield className="w-12 h-12" />} {/* آیکون ثابت بر اساس ترتیب */}
-                    </div>
+                   <div className="text-white">
+                  {React.createElement(defaultIcons[index] || Shield, { className: "w-12 h-12" })}
+                </div>
                   </div>
                   <div className="text-right">
                     <div className="inline-flex items-center gap-1 px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-bold">

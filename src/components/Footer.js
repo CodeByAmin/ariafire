@@ -19,10 +19,10 @@ const socialIconMap = {
 
 // آرایه از کامپوننت‌های آیکون (نه JSX مستقیم) — این روش هیچ خطای jsx-key نمی‌ده
 const quickLinkIconComponents = [
-  Zap,
-  Shield,
-  Truck,
-  MessageCircle,
+  { icon: Zap, name: 'آیتم ۱' },
+  { icon: Shield, name: 'آیتم ۲' },
+  { icon: Truck, name: 'آیتم ۳' },
+  { icon: MessageCircle, name: 'آیتم ۴' },
 ]
 
 export default function Footer({ siteData = {} }) {
@@ -109,22 +109,22 @@ export default function Footer({ siteData = {} }) {
               لینک‌های سریع
             </h3>
             <ul className="space-y-3">
-              {quickLinks.map((link, index) => {
-                const IconComponent = quickLinkIconComponents[index] || Zap
-                return (
-                  <li key={index}>
-                    <button
-                      onClick={() => scrollToSection(link.href)}
-                      className="flex items-center space-x-2 space-x-reverse text-gray-300 hover:text-white hover:translate-x-2 transition-all duration-300 group w-full text-right text-sm font-medium"
-                    >
-                      <span className="text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <IconComponent className="w-4 h-4" />
-                      </span>
-                      <span>{link.name}</span>
-                    </button>
-                  </li>
-                )
-              })}
+          {quickLinks.map((link, index) => {
+            const IconComponent = quickLinkIconComponents[index]?.icon || Zap
+            return (
+              <li key={index}>
+                <button
+                  onClick={() => scrollToSection(link.href)}
+                  className="flex items-center space-x-2 space-x-reverse text-gray-300 hover:text-white hover:translate-x-2 transition-all duration-300 group w-full text-right text-sm font-medium"
+                >
+                  <span className="text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <IconComponent className="w-4 h-4" />
+                  </span>
+                  <span>{link.name}</span>
+                </button>
+              </li>
+            )
+          })}
             </ul>
           </div>
 

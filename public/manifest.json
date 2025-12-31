@@ -1,0 +1,16 @@
+{
+  "name": "Ariafire - سیستم‌های اعلام و اطفاء حریق",
+  "short_name": "Ariafire",
+  "description": "تخصصی‌ترین سیستم‌های اعلام و اطفاء حریق",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#dc2626",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

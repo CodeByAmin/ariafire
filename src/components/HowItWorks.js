@@ -41,7 +41,15 @@ const steps = [
   }
 ]
 
-export default function HowItWorks() {
+export default function HowItWorks({ data = {} }) {
+  const {
+    howItWorksBadge = 'فرآیند هوشمند',
+    howItWorksTitle = 'سیستم چگونه کار می‌کند؟',
+    howItWorksDescription = 'از <strong className="text-orange-600">تشخیص هوشمند</strong> تا <strong className="text-red-600">اطفای خودکار</strong> - همه چیز در کمتر از ۱ ثانیه!',
+    howItWorksSteps = defaultSteps,
+    howItWorksCtaText = 'می‌خواهید این سیستم را روی ناوگان خود نصب کنید؟',
+    howItWorksCtaButton = 'درخواست دموی رایگان',
+  } = data
   const [activeStep, setActiveStep] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
 

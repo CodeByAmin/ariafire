@@ -4,21 +4,22 @@ import path from 'path'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+  
   images: {
-    domains: ['your-domain.com'],  // اگر نیاز داری
+    domains: ['localhost', 'ariafire.ir'],
     formats: ['image/avif', 'image/webp'],
   },
-  reactStrictMode: true,
-  experimental: {
-  // اگر ارور compiler داری
-  },
+  
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@payload-config': path.resolve(process.cwd(), 'payload.config.ts'),  // این خط کلیدی!
+      '@payload-config': path.resolve(process.cwd(), 'payload.config.ts'),
     }
     return config
   },
+  
+  // برای Payload، هیچ rewrites/redirects لازم نیست
 }
 
 export default withPayload(nextConfig)

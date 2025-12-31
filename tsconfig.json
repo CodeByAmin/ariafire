@@ -39,7 +39,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-, "src/app/(my-app)/page.jsx", "src/app/(my-app)/page.js"  ],
+, "src/app/(my-app)/page.jsx", "src/app/(my-app)/page.js", "src/app/(my-app)/not-found.jsx"  ],
   "exclude": [
     "node_modules"
   ]

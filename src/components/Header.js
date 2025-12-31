@@ -1,4 +1,4 @@
-// components/Header.tsx (یا .js — اما اگر از any استفاده کردی .tsx بهتره)
+// components/Header.tsx
 'use client'
 
 import Link from 'next/link'
@@ -14,12 +14,15 @@ const socialIconMap = {
 export default function Header({ currentPage = 'home', siteData = {} }) {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [isCalling, setIsCalling] = useState(false)
 
   const {
     brandName = 'آریافایر',
     brandTagline = 'سیستم ایمنی چرخ',
     mainMenu = [],
-    phone = '0902-709-7989',
+    phone = '09027097989',
+    contactNumber = '09027097989', // شماره تماس اصلی
+    whatsappNumber = '09027097989', // شماره واتساپ
   } = siteData
 
   useEffect(() => {
@@ -27,6 +30,33 @@ export default function Header({ currentPage = 'home', siteData = {} }) {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // تابع برای تماس تلفنی
+  const handleCallClick = () => {
+    setIsCalling(true)
+    
+    // شماره تماس را پاکسازی کنیم (حذف فاصله و خط تیره)
+    const cleanNumber = contactNumber.replace(/\D/g, '')
+    
+    // ساخت لینک تماس تلفنی
+    const telLink = `tel:${cleanNumber}`
+    
+    // باز کردن دیالر تلفن در موبایل
+    window.location.href = telLink
+    
+    // ریست وضعیت بعد از 2 ثانیه
+    setTimeout(() => {
+      setIsCalling(false)
+    }, 2000)
+  }
+
+  // تابع برای باز کردن واتساپ
+  const handleWhatsAppClick = () => {
+    const cleanNumber = whatsappNumber.replace(/\D/g, '')
+    const message = encodeURIComponent('سلام، از وبسایت آریافایر درخواست مشاوره دارم.')
+    const whatsappLink = `https://wa.me/${cleanNumber}?text=${message}`
+    window.open(whatsappLink, '_blank')
+  }
 
   return (
     <header
@@ -73,19 +103,48 @@ export default function Header({ currentPage = 'home', siteData = {} }) {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <Link
-            href="/contact"
-            className="hidden lg:flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-          >
-            تماس فوری
-            <Phone className="w-5 h-5" />
-          </Link>
+          {/* Desktop CTA Buttons */}
+          <div className="hidden lg:flex items-center gap-3">
+            {/* دکمه واتساپ */}
+            <button
+              onClick={handleWhatsAppClick}
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+              title="ارسال پیام در واتساپ"
+            >
+              <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span className="text-sm">واتساپ</span>
+            </button>
+
+            {/* دکمه تماس تلفنی */}
+            <button
+              onClick={handleCallClick}
+              disabled={isCalling}
+              className={`flex items-center gap-2 px-6 py-3 font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 ${
+                isCalling
+                  ? 'bg-gradient-to-r from-green-500 to-green-600 text-white'
+                  : 'bg-gradient-to-r from-orange-500 to-red-600 text-white hover:-translate-y-1'
+              }`}
+              title="تماس تلفنی"
+            >
+              {isCalling ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span className="text-sm">در حال اتصال...</span>
+                </>
+              ) : (
+                <>
+                  <Phone className="w-5 h-5" />
+                  <span>تماس</span>
+                </>
+              )}
+            </button>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden p-3 rounded-xl bg-white/50 border border-gray-200"
+            aria-label="منو"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -93,8 +152,9 @@ export default function Header({ currentPage = 'home', siteData = {} }) {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <nav className="lg:hidden pb-6 border-t border-gray-100 mt-4 pt-4">
-            <div className="flex flex-col space-y-2">
+          <div className="lg:hidden pb-6 border-t border-gray-100 mt-4 pt-4">
+            {/* Menu Items */}
+            <nav className="flex flex-col space-y-2 mb-4">
               {mainMenu.map((item) => (
                 <Link
                   key={item.pageId}
@@ -109,16 +169,59 @@ export default function Header({ currentPage = 'home', siteData = {} }) {
                   {item.text}
                 </Link>
               ))}
-              <Link
-                href="/contact"
-                onClick={() => setIsOpen(false)}
-                className="mt-4 flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold rounded-2xl shadow-lg"
-              >
-                تماس فوری
-                <Phone className="w-5 h-5" />
-              </Link>
+            </nav>
+
+            {/* Mobile Contact Buttons */}
+            <div className="flex flex-col gap-3 px-4">
+              {/* شماره تماس */}
+              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                <div className="text-right">
+                  <p className="text-sm text-gray-500">شماره تماس:</p>
+                  <p className="font-bold text-gray-900 text-lg">{contactNumber}</p>
+                </div>
+                <Phone className="w-5 h-5 text-gray-400" />
+              </div>
+
+              {/* دکمه‌های تماس */}
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => {
+                    handleWhatsAppClick()
+                    setIsOpen(false)
+                  }}
+                  className="flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-2xl shadow-lg"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  <span>واتساپ</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    handleCallClick()
+                    setIsOpen(false)
+                  }}
+                  disabled={isCalling}
+                  className={`flex items-center justify-center gap-2 py-4 font-bold rounded-2xl shadow-lg ${
+                    isCalling
+                      ? 'bg-gradient-to-r from-green-500 to-green-600'
+                      : 'bg-gradient-to-r from-orange-500 to-red-600 text-white'
+                  }`}
+                >
+                  {isCalling ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span>در حال اتصال</span>
+                    </>
+                  ) : (
+                    <>
+                      <Phone className="w-5 h-5" />
+                      <span>تماس تلفنی</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
-          </nav>
+          </div>
         )}
       </div>
     </header>

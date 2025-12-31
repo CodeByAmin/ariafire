@@ -1,4 +1,4 @@
-// src/collections/HomePage.ts
+// src/globals/HomePage.ts
 import { GlobalConfig } from 'payload'
 
 export const HomePage: GlobalConfig = {
@@ -7,6 +7,7 @@ export const HomePage: GlobalConfig = {
   admin: {
     group: 'صفحات',
   },
+  
   fields: [
     // === متادیتا ===
     {
@@ -69,7 +70,6 @@ export const HomePage: GlobalConfig = {
       name: 'stats',
       type: 'array',
       label: 'آمارهای بخش هیرو',
-      labels: { singular: 'آمار', plural: 'آمارها' },
       fields: [
         { name: 'number', type: 'text', required: true, label: 'عدد' },
         { name: 'title', type: 'text', required: true, label: 'عنوان' },
@@ -101,56 +101,27 @@ export const HomePage: GlobalConfig = {
       defaultValue: 'محصولی از تکنولوژی پیشرفته ایرانی و گارانتی ۵ ساله',
       label: 'توضیحات بخش ویژگی‌ها',
     },
-
-    // === لیست ویژگی‌ها (کاملاً قابل ویرایش) ===
     {
       name: 'featuresList',
       type: 'array',
       label: 'لیست ویژگی‌های اصلی',
       minRows: 3,
       maxRows: 9,
-      labels: { singular: 'ویژگی', plural: 'ویژگی‌ها' },
       fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-          label: 'عنوان ویژگی',
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          required: true,
-          label: 'توضیحات ویژگی',
-        },
-        {
-          name: 'stats',
-          type: 'text',
-          required: true,
-          label: 'آمار اصلی (مثل ۰.۳ ثانیه)',
-        },
-        {
-          name: 'time',
-          type: 'text',
-          required: true,
-          label: 'متن کوچک کنار آمار (مثل واکنش فوری)',
-        },
+        { name: 'title', type: 'text', required: true, label: 'عنوان ویژگی' },
+        { name: 'description', type: 'textarea', required: true, label: 'توضیحات ویژگی' },
+        { name: 'stats', type: 'text', required: true, label: 'آمار اصلی' },
+        { name: 'time', type: 'text', required: true, label: 'متن کوچک کنار آمار' },
         {
           name: 'details',
           type: 'array',
-          label: 'لیست جزئیات (تیک‌دار)',
-          fields: [
-            {
-              name: 'item',
-              type: 'text',
-              label: 'مورد',
-            },
-          ],
+          label: 'لیست جزئیات',
+          fields: [{ name: 'item', type: 'text', label: 'مورد' }],
           minRows: 1,
           maxRows: 6,
         },
       ],
-      defaultValue: [
+        defaultValue: [
         {
           title: 'سیستم اطفای خودکار',
           description: 'تشخیص و خاموش کردن خودکار آتش در کمتر از ۰.۳ ثانیه با استفاده از فوم ضدحریق پیشرفته',
@@ -219,7 +190,6 @@ export const HomePage: GlobalConfig = {
         },
       ],
     },
-
     // === CTA بخش ویژگی‌ها ===
     {
       name: 'featuresCtaStats',
@@ -232,6 +202,82 @@ export const HomePage: GlobalConfig = {
       type: 'textarea',
       defaultValue: 'به خانواده بزرگ آریافایر بپیوندید و خیالتان از بابت ایمنی چرخ‌های ناوگانتان راحت باشد',
       label: 'متن CTA ویژگی‌ها',
+    },
+// === How It Works Section (جدید - کاملاً قابل ویرایش) ===
+    {
+      name: 'howItWorksBadge',
+      type: 'text',
+      defaultValue: 'فرآیند هوشمند',
+      label: 'Badge بخش نحوه کار',
+    },
+    {
+      name: 'howItWorksTitle',
+      type: 'text',
+      defaultValue: 'سیستم چگونه کار می‌کند؟',
+      label: 'عنوان اصلی بخش نحوه کار',
+    },
+    {
+      name: 'howItWorksDescription',
+      type: 'textarea',
+      defaultValue: 'از تشخیص هوشمند تا اطفای خودکار - همه چیز در کمتر از ۱ ثانیه!',
+      label: 'توضیحات زیر عنوان',
+    },
+    {
+      name: 'howItWorksSteps',
+      type: 'array',
+      label: 'مراحل کار سیستم',
+      minRows: 4,
+      maxRows: 6,
+      fields: [
+        { name: 'title', type: 'text', required: true, label: 'عنوان مرحله' },
+        { name: 'description', type: 'textarea', required: true, label: 'توضیحات مرحله' },
+        { name: 'time', type: 'text', required: true, label: 'زمان (مثل ۰.۵ ثانیه)' },
+        {
+          name: 'details',
+          type: 'array',
+          label: 'جزئیات تیک‌دار',
+          fields: [{ name: 'item', type: 'text', label: 'مورد' }],
+          minRows: 2,
+        },
+      ],
+      defaultValue: [
+        {
+          title: 'تشخیص هوشمند دما',
+          description: 'سنسورهای حرارتی پیشرفته دمای چرخ‌ها را به صورت لحظه‌ای مانیتور می‌کنند و هرگونه افزایش غیرعادی دما را در ۰.۵ ثانیه تشخیص می‌دهند.',
+          time: '۰.۵ ثانیه',
+          details: [{ item: 'سنسورهای حرارتی آلمانی' }, { item: 'محدوده دمایی -۴۰ تا ۴۰۰ درجه' }, { item: 'کالیبراسیون خودکار' }],
+        },
+        {
+          title: 'هشدار چندگانه',
+          description: 'سیستم بلافاصله آلارم صوتی ۱۲۰ دسی‌بل فعال کرده و هشدار تصویری به راننده و مرکز کنترل ارسال می‌کند.',
+          time: 'همزمان',
+          details: [{ item: 'آلارم صوتی ۱۲۰ دسی‌بل' }, { item: 'نمایشگر LED رنگی' }, { item: 'ارسال نوتیفیکیشن' }],
+        },
+        {
+          title: 'اطفای خودکار',
+          description: 'فوم ضدحریق مخصوص به صورت ۳۶۰ درجه پاشیده شده و شعله‌ها در کمتر از ۰.۳ ثانیه کاملاً خاموش می‌شوند.',
+          time: '۰.۳ ثانیه',
+          details: [{ item: 'فوم ضدحریق مخصوص' }, { item: 'پاشش ۳۶۰ درجه' }, { item: 'بدون باقی‌مانده شیمیایی' }],
+        },
+        {
+          title: 'گزارش‌دهی لحظه‌ای',
+          description: 'تمام مراحل به صورت زنده در اپلیکیشن موبایل و پنل مدیریت نمایش داده شده و گزارش کامل ثبت می‌شود.',
+          time: '۲۴/۷',
+          details: [{ item: 'اپلیکیشن موبایل' }, { item: 'پنل مدیریت وب' }, { item: 'گزارش‌گیری آنلاین' }],
+        },
+      ],
+    },
+    {
+      name: 'howItWorksCtaText',
+      type: 'text',
+      defaultValue: 'می‌خواهید این سیستم را روی ناوگان خود نصب کنید؟',
+      label: 'متن بالای دکمه CTA در بخش نحوه کار',
+    },
+    {
+      name: 'howItWorksCtaButton',
+      type: 'text',
+      defaultValue: 'درخواست دموی رایگان',
+      label: 'متن دکمه CTA در بخش نحوه کار',
     },
 
     // === WhatsApp Form Section ===
@@ -257,10 +303,9 @@ export const HomePage: GlobalConfig = {
       name: 'whatsappBenefits',
       type: 'array',
       label: 'مزایای واتساپ',
-      labels: { singular: 'مزیت', plural: 'مزایا' },
       fields: [
-        { name: 'title', type: 'text', label: 'عنوان مزیت' },
-        { name: 'desc', type: 'text', label: 'توضیحات مزیت' },
+        { name: 'title', type: 'text', required: true, label: 'عنوان مزیت' },
+        { name: 'desc', type: 'text', required: true, label: 'توضیحات مزیت' },
       ],
       defaultValue: [
         { title: 'پاسخ در ۵ دقیقه', desc: 'تیم فروش فوری پاسخ می‌دهد' },

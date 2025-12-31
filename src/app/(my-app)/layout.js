@@ -10,7 +10,7 @@ export const metadata = {
   openGraph: {
     title: 'آریافایر: ایمنی کامل چرخ کامیون با اطفای حریق و بوق هشدار',
     description: 'جلوگیری از آتش‌سوزی با سیستم مانیتورینگ بوق در سه سطح دما و اطفای خودکار.',
-    images: '/og-image.jpg',  // اضافه کن به public
+    images: '/favicon.svg',  // اضافه کن به public
     locale: 'fa_IR',
     type: 'website',
     url: 'https://ariafire.ir',  // دامنه واقعی‌ت رو بگذار
@@ -26,6 +26,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
+      <head>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
       <body className={vazirmatn.className}>
         {children}
         {/* Structured Data برای محصول */}

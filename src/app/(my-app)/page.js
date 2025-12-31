@@ -43,47 +43,14 @@ export default async function HomePage() {
   } catch (error) {
     console.error('Error loading site settings:', error)
   }
-
-  // داده‌های صفحه اصلی با fallback
-  const pageData = {
-    heroBadge: 'جدیدترین تکنولوژی ایمنی حمل‌ونقل',
-    heroMainTitle: 'ایمنی کامل چرخ‌های',
-    heroSubTitle: 'کامیون و تریلی',
-    heroTagline: 'هشدار در ۰.۵ ثانیه • اطفای خودکار • مانیتورینگ ۲۴/۷',
-    heroCtaPrimary: 'شروع سفارش',
-    heroCtaSecondary: 'مشاهده ویژگی‌ها',
-    stats: [
-      { number: '5000+', title: 'کامیون محافظت شده', description: 'بیش از ۵۰۰۰ کامیون و تریلی با سیستم ایمنی پیشرفته ما محافظت می‌شوند' },
-      { number: '1200+', title: 'آتش‌سوزی جلوگیری شده', description: 'بیش از ۱۲۰۰ مورد آتش‌سوزی بالقوه پیشگیری شده است' },
-      { number: '0.5 ثانیه', title: 'هشدار فوق سریع', description: 'سیستم ما در کمتر از نیم‌ثانیه خطر را شناسایی و هشدار می‌دهد' },
-    ],
-    featuresTitle: 'چرا آریافایر بهترین انتخاب است؟',
-    featuresBadge: 'تکنولوژی پیشرفته',
-    featuresDescription: 'محصولی از تکنولوژی پیشرفته ایرانی و گارانتی ۵ ساله',
-    featuresCtaStats: '۵۰۰۰ کامیون',
-    featuresCtaText: 'به خانواده بزرگ آریافایر بپیوندید و خیالتان از بابت ایمنی چرخ‌های ناوگانتان راحت باشد',
-    contactBadge: 'ارسال فوری به واتساپ',
-    contactTitle: 'در کمتر از ۳۰ ثانیه سیستم ایمنی سفارش دهید',
-    contactDescription: 'اطلاعات شما مستقیماً به واتساپ تیم فروش ارسال شده و در ۵ دقیقه پاسخ می‌گیرید',
-    whatsappBenefits: [
-      { title: 'پاسخ در ۵ دقیقه', desc: 'تیم فروش فوری پاسخ می‌دهد' },
-      { title: 'مشاوره رایگان', desc: 'کارشناسان متخصص' },
-      { title: 'نصب سریع', desc: 'در محل ناوگان شما' },
-      { title: 'گارانتی مادام العمر', desc: 'پشتیبانی ۲۴/۷' },
-    ],
-    featuresList: [], // اگر بعداً اضافه کردی
-    ...homeData,
-  }
-
   return (
     <>
       {/* حالا siteSettings درست پاس داده می‌شه */}
       <Header currentPage="home" siteData={siteSettings} />
-      
-      <Hero data={pageData} />
-      <Features data={pageData} />
-      <HowItWorks />
-      <WhatsAppForm data={pageData} />
+    <Hero data={homeData} />
+      <Features data={homeData} />
+      <HowItWorks data={homeData} />
+      <WhatsAppForm data={homeData} />
       <SupportPanel />
       
       <Footer siteData={siteSettings} />

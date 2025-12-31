@@ -23,6 +23,26 @@ export const MonitoringPage: GlobalConfig = {
       required: true,
       defaultValue: 'سیستم مانیتورینگ بوق سه‌مرحله‌ای',
     },
+    
+    // بخش معرفی
+    {
+      name: 'introImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'تصویر بخش معرفی',
+    },
+    {
+      name: 'introTitle',
+      type: 'text',
+      defaultValue: 'هوشمند‌ترین سیستم هشدار پیش از آتش‌سوزی',
+    },
+    {
+      name: 'introDescription',
+      type: 'textarea',
+      defaultValue: 'سیستم مانیتورینگ آریافایر با استفاده از سنسورهای حساس دمایی، وضعیت موتور و قطعات حیاتی خودرو را به صورت لحظه‌ای رصد می‌کند. در صورت تشخیص افزایش دمای غیرعادی، بلافاصله هشدارهای صوتی پلکانی را فعال می‌نماید.',
+    },
+    
+    // مراحل هشدار
     {
       name: 'stage1Temp',
       type: 'text',
@@ -68,6 +88,69 @@ export const MonitoringPage: GlobalConfig = {
       type: 'textarea',
       defaultValue: 'فعال‌سازی خودکار اطفای حریق',
     },
+    
+    // بخش قابلیت‌ها
+    {
+      name: 'featuresImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'تصویر بخش قابلیت‌ها',
+    },
+    {
+      name: 'featuresTitle',
+      type: 'text',
+      defaultValue: 'قابلیت‌های منحصربه‌فرد سیستم',
+    },
+    {
+      name: 'featuresList',
+      type: 'array',
+      label: 'لیست قابلیت‌ها',
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          label: 'عنوان قابلیت',
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'توضیحات',
+        },
+      ],
+    },
+    
+    // بخش مزایا
+    {
+      name: 'benefitsImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'تصویر بخش مزایا',
+    },
+    {
+      name: 'benefitsTitle',
+      type: 'text',
+      defaultValue: 'مزایای استفاده از سیستم مانیتورینگ',
+    },
+    {
+      name: 'benefitsList',
+      type: 'array',
+      label: 'لیست مزایا',
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          label: 'عنوان مزیت',
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'توضیحات',
+        },
+      ],
+    },
+    
     {
       name: 'galleryImages',
       type: 'array',

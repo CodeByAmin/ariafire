@@ -40,14 +40,14 @@ export default async function ContactPage() {
     heroTitle = 'آماده‌ایم تا به شما کمک کنیم',
     heroDescription = 'تیم متخصص آریافایر همیشه در کنار شماست. مشاوره رایگان، نصب در محل و پشتیبانی مادام‌العمر.',
     badgeText = 'پشتیبانی ۲۴ ساعته • پاسخگویی فوری',
-    phone = '0902-709-7989',
+    phone = '۰۹۰۲-۷۰۹-۷۹۸۹',
     whatsappLink = 'https://wa.me/989027097989',
     whatsappText = 'کلیک برای چت مستقیم',
     email = 'info@ariafire.ir',
     addressTitle = 'دفتر مرکزی تهران',
     address = 'تهران، خیابان انقلاب اسلامی، پلاک ۱۲۳',
     workingHours = 'شنبه تا پنجشنبه: ۸ صبح تا ۸ شب',
-    mapEmbed = '<iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d681.4076138974785!2d51.387043132498555!3d35.66865073664664!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1766741982525!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    mapEmbed = '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.123456789!2d51.386451!3d35.668553!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQwJzA2LjgiTiA1McKwMjMnMTEuMiJF!5e0!3m2!1sen!2sus!4v1735700000000!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     ctaStats = '۵۰۰۰ کامیون',
     ctaText = 'نوبت شماست! همین حالا تماس بگیرید و ایمنی ناوگان خود را تضمین کنید.',
     ctaPhone = '۰۹۰۲-۷۰۹-۷۹۸۹',
@@ -210,7 +210,9 @@ export default async function ContactPage() {
                     {addressTitle}
                   </h3>
                 </div>
-                <div className="h-96" dangerouslySetInnerHTML={{ __html: mapEmbed }} />
+           <div className="relative w-full h-96 overflow-hidden rounded-xl">
+  <div className="absolute inset-0" dangerouslySetInnerHTML={{ __html: mapEmbed }} />
+</div>
                 <div className="p-6 space-y-3">
                   <p className="flex items-center text-gray-700">
                     <MapPin className="w-5 h-5 ml-2 text-orange-500" />

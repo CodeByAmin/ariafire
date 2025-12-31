@@ -123,7 +123,20 @@ export const SiteSettings: GlobalConfig = {
         { name: 'لینکدین', href: 'https://linkedin.com/company/ariafire', icon: 'linkedin' },
       ],
     },
-
+{
+  name: 'contactNumber',
+  type: 'text',
+  label: 'شماره تماس اصلی',
+  defaultValue: '09027097989',
+  required: true
+},
+{
+  name: 'whatsappNumber',
+  type: 'text',
+  label: 'شماره واتساپ',
+  defaultValue: '09027097989',
+  required: true
+},
     // === لینک‌های سریع فوتر ===
     {
       name: 'quickLinks',
